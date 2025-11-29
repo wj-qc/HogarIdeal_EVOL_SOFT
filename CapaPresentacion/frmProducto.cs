@@ -70,9 +70,9 @@ namespace CapaPresentacion
             item.Descripcion,
             item.oCategoria.IdCategoria,
             item.oCategoria.Descripcion,
-            item.Stock,
             item.PrecioCompra,
             item.PrecioVenta,
+            item.Stock,
             item.Estado == true ? 1 : 0,
             item.Estado == true ? "Activo" : "No Activo"
         });
@@ -129,35 +129,21 @@ namespace CapaPresentacion
 
             // Cargar los datos ordenados en el DataGridView
             foreach (var producto in productos)
-            {
-                /*dgvdata.Rows.Add(new object[] {
-            "",
-            producto.IdProducto,
-            producto.Codigo,
-            producto.Nombre,
-            producto.Descripcion,
-            producto.oCategoria.IdCategoria.ToString(),
-            producto.oCategoria.Descripcion, // Cambia según tus campos
-            "0", // Puedes reemplazar con el stock si lo tienes
-            "0.00", // Precio de compra, si aplica
-            "0.00", // Precio de venta, si aplica
-            producto.Estado ? "1" : "0",
-            producto.Estado ? "Activo" : "No Activo"
-        });*/
+            {             
                 dgvdata.Rows.Add(new object[] {
-    "",
-    producto.IdProducto,
-    producto.Codigo,
-    producto.Nombre,
-    producto.Descripcion,
-    producto.oCategoria.IdCategoria.ToString(),
-    producto.oCategoria.Descripcion,
-    producto.Stock.ToString(), // Asegúrate de tener el valor real de Stock
-    producto.PrecioCompra.ToString("0.00"), // Usa el valor de PrecioCompra
-    producto.PrecioVenta.ToString("0.00"), // Usa el valor de PrecioVenta
-    producto.Estado ? "1" : "0",
-    producto.Estado ? "Activo" : "No Activo"
-});
+                    "",
+                    producto.IdProducto,
+                    producto.Codigo,
+                    producto.Nombre,
+                    producto.Descripcion,
+                    producto.oCategoria.IdCategoria,
+                    producto.oCategoria.Descripcion,
+                    producto.Stock,
+                    producto.PrecioCompra,
+                    producto.PrecioVenta,
+                    producto.Estado == true ? 1 : 0,
+                    producto.Estado == true ? "Activo" : "No Activo"
+                });
 
             }
         }
@@ -190,6 +176,9 @@ namespace CapaPresentacion
                 Nombre = txtnombre.Text,
                 Descripcion = txtdescripcion.Text,
                 oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(((OpcionCombo)cbocategoria.SelectedItem).Valor) },
+                PrecioCompra = Convert.ToDecimal(txtPCompra.Text),
+                PrecioVenta = Convert.ToDecimal(txtPVenta.Text),
+                Stock = Convert.ToInt32(numCantidad.Value.ToString()),
                 Estado = Convert.ToInt32(((OpcionCombo)cboestado.SelectedItem).Valor) == 1 ? true : false
             };
 
@@ -201,19 +190,19 @@ namespace CapaPresentacion
                 {
                     // Agregar el nuevo producto a la tabla
                     dgvdata.Rows.Add(new object[] {
-                "",
-                idgenerado,
-                txtcodigo.Text,
-                txtnombre.Text,
-                txtdescripcion.Text,
-                ((OpcionCombo)cbocategoria.SelectedItem).Valor.ToString(),
-                ((OpcionCombo)cbocategoria.SelectedItem).Texto.ToString(),
-                "0",
-                "0.00",
-                "0.00",
-                ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
-                ((OpcionCombo)cboestado.SelectedItem).Texto.ToString()
-            });
+                    "",
+                    idgenerado,
+                    txtcodigo.Text,
+                    txtnombre.Text,
+                    txtdescripcion.Text,
+                    ((OpcionCombo)cbocategoria.SelectedItem).Valor.ToString(),
+                    ((OpcionCombo)cbocategoria.SelectedItem).Texto.ToString(),
+                    Convert.ToDecimal(txtPCompra.Text),
+                    Convert.ToDecimal(txtPVenta.Text),
+                    Convert.ToInt32(numCantidad.Value.ToString()),
+                    ((OpcionCombo)cboestado.SelectedItem).Valor.ToString(),
+                    ((OpcionCombo)cboestado.SelectedItem).Texto.ToString()
+                });
 
                     Limpiar();
 
@@ -242,6 +231,9 @@ namespace CapaPresentacion
                     row.Cells["Descripcion"].Value = txtdescripcion.Text;
                     row.Cells["IdCategoria"].Value = ((OpcionCombo)cbocategoria.SelectedItem).Valor.ToString();
                     row.Cells["Categoria"].Value = ((OpcionCombo)cbocategoria.SelectedItem).Texto.ToString();
+                    row.Cells["Stock"].Value = numCantidad.Value;
+                    row.Cells["PrecioCompra"].Value = Convert.ToDecimal(txtPCompra.Text);
+                    row.Cells["PrecioVenta"].Value = Convert.ToDecimal(txtPVenta.Text);
                     row.Cells["EstadoValor"].Value = ((OpcionCombo)cboestado.SelectedItem).Valor.ToString();
                     row.Cells["Estado"].Value = ((OpcionCombo)cboestado.SelectedItem).Texto.ToString();
 
@@ -270,6 +262,9 @@ namespace CapaPresentacion
             txtnombre.Text = string.Empty;
             txtdescripcion.Text = string.Empty;
             cbocategoria.SelectedIndex = 0;
+            numCantidad.Value = 0;
+            txtPCompra.Text = string.Empty;
+            txtPVenta.Text = string.Empty;
             cboestado.SelectedIndex = 0;
             txtid.Text = "0"; // Reset ID for new entry
 
@@ -311,6 +306,9 @@ namespace CapaPresentacion
                     txtcodigo.Text = dgvdata.Rows[indice].Cells["Codigo"].Value.ToString();
                     txtnombre.Text = dgvdata.Rows[indice].Cells["Nombre"].Value.ToString();
                     txtdescripcion.Text = dgvdata.Rows[indice].Cells["Descripcion"].Value.ToString();
+                    numCantidad.Value = Convert.ToInt32(dgvdata.Rows[indice].Cells["Stock"].Value.ToString());
+                    txtPCompra.Text = dgvdata.Rows[indice].Cells["PrecioCompra"].Value.ToString();
+                    txtPVenta.Text = dgvdata.Rows[indice].Cells["PrecioVenta"].Value.ToString();
 
 
                     foreach (OpcionCombo oc in cbocategoria.Items)

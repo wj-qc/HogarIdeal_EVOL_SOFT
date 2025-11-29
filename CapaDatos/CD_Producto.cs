@@ -1,5 +1,6 @@
 ﻿using CapaEntidad;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -41,9 +42,9 @@ namespace CapaDatos
                                 Nombre = dr["Nombre"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
                                 oCategoria = new Categoria() { IdCategoria = Convert.ToInt32(dr["IdCategoria"]), Descripcion = dr["DescripcionCategoria"].ToString() },
-                                Stock = Convert.ToInt32(dr["Stock"].ToString()),
-                                PrecioCompra = Convert.ToDecimal(dr["PrecioCompra"].ToString()),
-                                PrecioVenta = Convert.ToDecimal(dr["PrecioVenta"].ToString()),
+                                Stock = Convert.ToInt32(dr["Stock"]),
+                                PrecioCompra = Convert.ToDecimal(dr["PrecioCompra"]),
+                                PrecioVenta = Convert.ToDecimal(dr["PrecioVenta"]),
                                 Estado = Convert.ToBoolean(dr["Estado"])
                             });
 
@@ -72,19 +73,20 @@ namespace CapaDatos
             int idProductogenerado = 0;
             Mensaje = string.Empty;
 
-
             try
             {
-
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
                 {
-
                     SqlCommand cmd = new SqlCommand("sp_RegistrarProducto", oconexion);
                     cmd.Parameters.AddWithValue("Codigo", obj.Codigo);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
                     cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
+                    cmd.Parameters.AddWithValue("PrecioCompra", obj.PrecioCompra);
+                    cmd.Parameters.AddWithValue("PrecioVenta", obj.PrecioVenta);  
+                    cmd.Parameters.AddWithValue("Stock", obj.Stock);               
                     cmd.Parameters.AddWithValue("Estado", obj.Estado);
+
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -95,9 +97,7 @@ namespace CapaDatos
 
                     idProductogenerado = Convert.ToInt32(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
-
                 }
-
             }
             catch (Exception ex)
             {
@@ -105,10 +105,9 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
 
-
-
             return idProductogenerado;
         }
+
 
 
 
@@ -117,20 +116,21 @@ namespace CapaDatos
             bool respuesta = false;
             Mensaje = string.Empty;
 
-
             try
             {
-
                 using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
                 {
-
                     SqlCommand cmd = new SqlCommand("sp_ModificarProducto", oconexion);
                     cmd.Parameters.AddWithValue("IdProducto", obj.IdProducto);
                     cmd.Parameters.AddWithValue("Codigo", obj.Codigo);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Descripcion", obj.Descripcion);
                     cmd.Parameters.AddWithValue("IdCategoria", obj.oCategoria.IdCategoria);
+                    cmd.Parameters.AddWithValue("PrecioCompra", obj.PrecioCompra);   
+                    cmd.Parameters.AddWithValue("PrecioVenta", obj.PrecioVenta);     
+                    cmd.Parameters.AddWithValue("Stock", obj.Stock);                
                     cmd.Parameters.AddWithValue("Estado", obj.Estado);
+
                     cmd.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -141,9 +141,7 @@ namespace CapaDatos
 
                     respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
                     Mensaje = cmd.Parameters["Mensaje"].Value.ToString();
-
                 }
-
             }
             catch (Exception ex)
             {
@@ -151,10 +149,9 @@ namespace CapaDatos
                 Mensaje = ex.Message;
             }
 
-
-
             return respuesta;
         }
+
 
 
         public bool Eliminar(Producto obj, out string Mensaje)

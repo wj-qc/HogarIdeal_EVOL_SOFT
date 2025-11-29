@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnbuscar = new FontAwesome.Sharp.IconButton();
             this.dgvdata = new System.Windows.Forms.DataGridView();
             this.btnseleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -68,13 +68,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnexportar = new FontAwesome.Sharp.IconButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPCompra = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.txtPVenta = new System.Windows.Forms.TextBox();
+            this.numCantidad = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // btnbuscar
@@ -99,15 +99,15 @@
             // 
             this.dgvdata.AllowUserToAddRows = false;
             this.dgvdata.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvdata.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnseleccionar,
@@ -126,9 +126,9 @@
             this.dgvdata.MultiSelect = false;
             this.dgvdata.Name = "dgvdata";
             this.dgvdata.ReadOnly = true;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvdata.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvdata.RowTemplate.Height = 28;
             this.dgvdata.Size = new System.Drawing.Size(862, 291);
             this.dgvdata.TabIndex = 47;
@@ -497,12 +497,12 @@
             this.label5.TabIndex = 210;
             this.label5.Text = "Precio Compra:";
             // 
-            // textBox1
+            // txtPCompra
             // 
-            this.textBox1.Location = new System.Drawing.Point(40, 254);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(191, 20);
-            this.textBox1.TabIndex = 211;
+            this.txtPCompra.Location = new System.Drawing.Point(40, 254);
+            this.txtPCompra.Name = "txtPCompra";
+            this.txtPCompra.Size = new System.Drawing.Size(191, 20);
+            this.txtPCompra.TabIndex = 211;
             // 
             // label6
             // 
@@ -510,23 +510,23 @@
             this.label6.BackColor = System.Drawing.Color.Tan;
             this.label6.Location = new System.Drawing.Point(37, 284);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 212;
-            this.label6.Text = "Precio Venta";
+            this.label6.Text = "Precio Venta:";
             // 
-            // textBox2
+            // txtPVenta
             // 
-            this.textBox2.Location = new System.Drawing.Point(40, 300);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(191, 20);
-            this.textBox2.TabIndex = 213;
+            this.txtPVenta.Location = new System.Drawing.Point(40, 300);
+            this.txtPVenta.Name = "txtPVenta";
+            this.txtPVenta.Size = new System.Drawing.Size(191, 20);
+            this.txtPVenta.TabIndex = 213;
             // 
-            // numericUpDown1
+            // numCantidad
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(40, 341);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(192, 20);
-            this.numericUpDown1.TabIndex = 214;
+            this.numCantidad.Location = new System.Drawing.Point(40, 341);
+            this.numCantidad.Name = "numCantidad";
+            this.numCantidad.Size = new System.Drawing.Size(192, 20);
+            this.numCantidad.TabIndex = 214;
             // 
             // label12
             // 
@@ -534,9 +534,9 @@
             this.label12.BackColor = System.Drawing.Color.Tan;
             this.label12.Location = new System.Drawing.Point(40, 327);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.Size = new System.Drawing.Size(38, 13);
             this.label12.TabIndex = 215;
-            this.label12.Text = "Cantidad";
+            this.label12.Text = "Stock:";
             // 
             // frmProducto
             // 
@@ -544,10 +544,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1146, 510);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.numCantidad);
+            this.Controls.Add(this.txtPVenta);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtPCompra);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnexportar);
             this.Controls.Add(this.btnbuscar);
@@ -578,7 +578,7 @@
             this.Text = "frmProducto";
             this.Load += new System.EventHandler(this.frmProducto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -624,10 +624,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
         private FontAwesome.Sharp.IconButton btnexportar;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPCompra;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TextBox txtPVenta;
+        private System.Windows.Forms.NumericUpDown numCantidad;
         private System.Windows.Forms.Label label12;
     }
 }
