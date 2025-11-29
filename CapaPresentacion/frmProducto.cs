@@ -311,7 +311,7 @@ namespace CapaPresentacion
                     txtcodigo.Text = dgvdata.Rows[indice].Cells["Codigo"].Value.ToString();
                     txtnombre.Text = dgvdata.Rows[indice].Cells["Nombre"].Value.ToString();
                     txtdescripcion.Text = dgvdata.Rows[indice].Cells["Descripcion"].Value.ToString();
-            
+
 
                     foreach (OpcionCombo oc in cbocategoria.Items)
                     {
@@ -416,15 +416,18 @@ namespace CapaPresentacion
             {
                 MessageBox.Show("No hay datos para exportar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else {
+            else
+            {
                 DataTable dt = new DataTable();
 
-                foreach (DataGridViewColumn columna in dgvdata.Columns) {
+                foreach (DataGridViewColumn columna in dgvdata.Columns)
+                {
                     if (columna.HeaderText != "" && columna.Visible)
                         dt.Columns.Add(columna.HeaderText, typeof(string));
                 }
 
-                foreach (DataGridViewRow row in dgvdata.Rows) {
+                foreach (DataGridViewRow row in dgvdata.Rows)
+                {
                     if (row.Visible)
                         dt.Rows.Add(new object[] {
                             row.Cells[2].Value.ToString(),
@@ -440,12 +443,14 @@ namespace CapaPresentacion
                 }
 
                 SaveFileDialog savefile = new SaveFileDialog();
-                savefile.FileName = string.Format("ReporteProducto_{0}.xlsx",DateTime.Now.ToString("ddMMyyyyHHmmss"));
+                savefile.FileName = string.Format("ReporteProducto_{0}.xlsx", DateTime.Now.ToString("ddMMyyyyHHmmss"));
                 savefile.Filter = "Excel Files | *.xlsx";
 
-                if (savefile.ShowDialog() == DialogResult.OK) {
+                if (savefile.ShowDialog() == DialogResult.OK)
+                {
 
-                    try {
+                    try
+                    {
                         XLWorkbook wb = new XLWorkbook();
                         var hoja = wb.Worksheets.Add(dt, "Informe");
                         hoja.ColumnsUsed().AdjustToContents();
@@ -453,7 +458,8 @@ namespace CapaPresentacion
                         MessageBox.Show("Reporte Generado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     }
-                    catch {
+                    catch
+                    {
                         MessageBox.Show("Error al generar reporte", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
 
