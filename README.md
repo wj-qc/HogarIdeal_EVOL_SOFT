@@ -1,2 +1,2 @@
-- Ejecutar como administrador para restaurar y actualizar los paquetes NuGet
+- Ejecutar como administrador Visual Studio para restaurar y actualizar los paquetes NuGet del proyecto.
 - Para cambiar el servidor, ir al archivo App.config en el campo Source con el nombre del Server de Microsodt SQL.
