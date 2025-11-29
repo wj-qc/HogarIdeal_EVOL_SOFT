@@ -39,6 +39,21 @@ namespace CapaNegocio
                 Mensaje += "Es necesario la Descripcion del Producto\n";
             }
 
+            if (obj.PrecioCompra <= 0)
+            {
+                Mensaje += "Es necesario el precio de compra del Producto\n";
+            }
+
+            if (obj.PrecioVenta <= 0)
+            {
+                Mensaje += "Es necesario el precio de venta del Producto\n";
+            }
+
+            if (obj.Stock < 0)
+            {
+                Mensaje += "El stock no puede ser un numero negativo\n";
+            }
+
             if (Mensaje != string.Empty)
             {
                 return 0;
@@ -73,6 +88,22 @@ namespace CapaNegocio
                 Mensaje += "Es necesario la Descripcion del Producto\n";
             }
 
+            if(obj.PrecioCompra  <= 0)
+            {
+                Mensaje += "Es necesario el precio de compra del Producto\n";
+            }
+
+            if(obj.PrecioVenta <= 0)
+            {
+                Mensaje += "Es necesario el precio de venta del Producto\n";
+            }
+
+            if(obj.Stock < 0)
+            {
+                Mensaje += "El stock no puede ser un numero negativo\n";
+            }
+
+
             if (Mensaje != string.Empty)
             {
                 return false;
@@ -87,6 +118,17 @@ namespace CapaNegocio
         public bool Eliminar(Producto obj, out string Mensaje)
         {
             return objcd_Producto.Eliminar(obj, out Mensaje);
+        }
+
+        public List<Producto> ListarPorStockMinimo(int stockMinimo)
+        {
+            // Evita valores negativos
+            if (stockMinimo < 0)
+            {
+                stockMinimo = 0;
+            }
+
+            return objcd_Producto.ListarPorStockMinimo(stockMinimo);
         }
     }
 }

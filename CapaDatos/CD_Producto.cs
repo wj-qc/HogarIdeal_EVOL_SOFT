@@ -192,5 +192,52 @@ namespace CapaDatos
 
             return respuesta;
         }
+
+        public List<Producto> ListarPorStockMinimo(int stockMinimo)
+        {
+            List<Producto> lista = new List<Producto>();
+
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    StringBuilder query = new StringBuilder();
+                    query.AppendLine("SELECT IdProducto, Codigo, Nombre, Descripcion, Stock, Precio, Estado");
+                    query.AppendLine("FROM Producto");
+                    query.AppendLine("WHERE Stock <= @stockMinimo");
+
+                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    cmd.Parameters.AddWithValue("@stockMinimo", stockMinimo);
+                    cmd.CommandType = CommandType.Text;
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Producto()
+                            {
+                                IdProducto = Convert.ToInt32(dr["IdProducto"]),
+                                Codigo = dr["Codigo"].ToString(),
+                                Nombre = dr["Nombre"].ToString(),
+                                Descripcion = dr["Descripcion"].ToString(),
+                                Stock = Convert.ToInt32(dr["Stock"]),
+                                Precio = Convert.ToDecimal(dr["Precio"]),
+                                Estado = Convert.ToBoolean(dr["Estado"])
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Podrías loguear el error
+                    lista = new List<Producto>();
+                }
+            }
+
+            return lista;
+        }
+
     }
 }
