@@ -223,7 +223,8 @@ namespace CapaDatos
                                 Nombre = dr["Nombre"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
                                 Stock = Convert.ToInt32(dr["Stock"]),
-                                Precio = Convert.ToDecimal(dr["Precio"]),
+                                PrecioCompra = Convert.ToDecimal(dr["PrecioCompra"]),
+                                PrecioVenta = Convert.ToDecimal(dr["PrecioVenta"]),
                                 Estado = Convert.ToBoolean(dr["Estado"])
                             });
                         }
