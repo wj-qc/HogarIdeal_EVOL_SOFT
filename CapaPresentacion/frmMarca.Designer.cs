@@ -45,12 +45,14 @@
             this.txtbusqueda = new System.Windows.Forms.TextBox();
             this.btnbuscar = new FontAwesome.Sharp.IconButton();
             this.btnlimpiarbuscador = new FontAwesome.Sharp.IconButton();
-            this.dgvMarca = new System.Windows.Forms.DataGridView();
+            this.dgvdata = new System.Windows.Forms.DataGridView();
             this.IdMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lugar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMarca)).BeginInit();
+            this.txtindice = new System.Windows.Forms.TextBox();
+            this.txtid = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -148,6 +150,7 @@
             this.btnguardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnguardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnguardar.UseVisualStyleBackColor = false;
+            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
             // 
             // btnlimpiar
             // 
@@ -169,6 +172,7 @@
             this.btnlimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnlimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnlimpiar.UseVisualStyleBackColor = false;
+            this.btnlimpiar.Click += new System.EventHandler(this.btnlimpiar_Click);
             // 
             // btneliminar
             // 
@@ -190,6 +194,7 @@
             this.btneliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btneliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btneliminar.UseVisualStyleBackColor = false;
+            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
             // 
             // label10
             // 
@@ -246,6 +251,7 @@
             this.btnbuscar.Size = new System.Drawing.Size(42, 23);
             this.btnbuscar.TabIndex = 61;
             this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // btnlimpiarbuscador
             // 
@@ -264,19 +270,21 @@
             this.btnlimpiarbuscador.TabIndex = 62;
             this.btnlimpiarbuscador.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnlimpiarbuscador.UseVisualStyleBackColor = false;
+            this.btnlimpiarbuscador.Click += new System.EventHandler(this.btnlimpiarbuscador_Click);
             // 
-            // dgvMarca
+            // dgvdata
             // 
-            this.dgvMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMarca.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvdata.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdMarca,
             this.Nombre,
             this.Lugar,
             this.Estado});
-            this.dgvMarca.Location = new System.Drawing.Point(315, 103);
-            this.dgvMarca.Name = "dgvMarca";
-            this.dgvMarca.Size = new System.Drawing.Size(543, 231);
-            this.dgvMarca.TabIndex = 63;
+            this.dgvdata.Location = new System.Drawing.Point(315, 103);
+            this.dgvdata.Name = "dgvdata";
+            this.dgvdata.Size = new System.Drawing.Size(543, 231);
+            this.dgvdata.TabIndex = 63;
+            this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
             // 
             // IdMarca
             // 
@@ -300,12 +308,34 @@
             this.Estado.HeaderText = "Estado";
             this.Estado.Name = "Estado";
             // 
+            // txtindice
+            // 
+            this.txtindice.BackColor = System.Drawing.Color.Tan;
+            this.txtindice.Location = new System.Drawing.Point(185, 39);
+            this.txtindice.Name = "txtindice";
+            this.txtindice.Size = new System.Drawing.Size(25, 20);
+            this.txtindice.TabIndex = 64;
+            this.txtindice.Text = "-1";
+            this.txtindice.Visible = false;
+            // 
+            // txtid
+            // 
+            this.txtid.BackColor = System.Drawing.Color.Tan;
+            this.txtid.Location = new System.Drawing.Point(216, 39);
+            this.txtid.Name = "txtid";
+            this.txtid.Size = new System.Drawing.Size(25, 20);
+            this.txtid.TabIndex = 65;
+            this.txtid.Text = "0";
+            this.txtid.Visible = false;
+            // 
             // frmMarca
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(903, 359);
-            this.Controls.Add(this.dgvMarca);
+            this.Controls.Add(this.txtid);
+            this.Controls.Add(this.txtindice);
+            this.Controls.Add(this.dgvdata);
             this.Controls.Add(this.btnlimpiarbuscador);
             this.Controls.Add(this.btnbuscar);
             this.Controls.Add(this.txtbusqueda);
@@ -326,7 +356,7 @@
             this.Name = "frmMarca";
             this.Text = "frmMarca";
             this.Load += new System.EventHandler(this.frmMarca_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMarca)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,10 +381,12 @@
         private System.Windows.Forms.TextBox txtbusqueda;
         private FontAwesome.Sharp.IconButton btnbuscar;
         private FontAwesome.Sharp.IconButton btnlimpiarbuscador;
-        private System.Windows.Forms.DataGridView dgvMarca;
+        private System.Windows.Forms.DataGridView dgvdata;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdMarca;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lugar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private System.Windows.Forms.TextBox txtindice;
+        private System.Windows.Forms.TextBox txtid;
     }
 }

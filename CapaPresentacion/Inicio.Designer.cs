@@ -52,6 +52,7 @@
             this.FechaHora = new System.Windows.Forms.Timer(this.components);
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
+            this.submenumarca = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -75,13 +76,13 @@
             // menuusuarios
             // 
             this.menuusuarios.AutoSize = false;
-            this.menuusuarios.IconChar = FontAwesome.Sharp.IconChar.UsersCog;
+            this.menuusuarios.IconChar = FontAwesome.Sharp.IconChar.UsersGear;
             this.menuusuarios.IconColor = System.Drawing.Color.Black;
             this.menuusuarios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.menuusuarios.IconSize = 50;
             this.menuusuarios.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuusuarios.Name = "menuusuarios";
-            this.menuusuarios.Size = new System.Drawing.Size(80, 69);
+            this.menuusuarios.Size = new System.Drawing.Size(122, 69);
             this.menuusuarios.Text = "Usuarios";
             this.menuusuarios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.menuusuarios.Click += new System.EventHandler(this.menuusuarios_Click);
@@ -91,14 +92,15 @@
             this.menumantenedor.AutoSize = false;
             this.menumantenedor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.submenucategoria,
-            this.submenuproducto});
-            this.menumantenedor.IconChar = FontAwesome.Sharp.IconChar.Tools;
+            this.submenuproducto,
+            this.submenumarca});
+            this.menumantenedor.IconChar = FontAwesome.Sharp.IconChar.ScrewdriverWrench;
             this.menumantenedor.IconColor = System.Drawing.Color.Black;
             this.menumantenedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.menumantenedor.IconSize = 50;
             this.menumantenedor.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menumantenedor.Name = "menumantenedor";
-            this.menumantenedor.Size = new System.Drawing.Size(80, 69);
+            this.menumantenedor.Size = new System.Drawing.Size(122, 69);
             this.menumantenedor.Text = "Negocio";
             this.menumantenedor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -108,7 +110,7 @@
             this.submenucategoria.IconColor = System.Drawing.Color.Black;
             this.submenucategoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenucategoria.Name = "submenucategoria";
-            this.submenucategoria.Size = new System.Drawing.Size(125, 22);
+            this.submenucategoria.Size = new System.Drawing.Size(180, 22);
             this.submenucategoria.Text = "Categoria";
             this.submenucategoria.Click += new System.EventHandler(this.submenucategoria_Click);
             // 
@@ -118,7 +120,7 @@
             this.submenuproducto.IconColor = System.Drawing.Color.Black;
             this.submenuproducto.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.submenuproducto.Name = "submenuproducto";
-            this.submenuproducto.Size = new System.Drawing.Size(125, 22);
+            this.submenuproducto.Size = new System.Drawing.Size(180, 22);
             this.submenuproducto.Text = "Producto";
             this.submenuproducto.Click += new System.EventHandler(this.submenuproducto_Click);
             // 
@@ -197,7 +199,7 @@
             // menuclientes
             // 
             this.menuclientes.AutoSize = false;
-            this.menuclientes.IconChar = FontAwesome.Sharp.IconChar.UserFriends;
+            this.menuclientes.IconChar = FontAwesome.Sharp.IconChar.UserGroup;
             this.menuclientes.IconColor = System.Drawing.Color.Black;
             this.menuclientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.menuclientes.IconSize = 50;
@@ -217,10 +219,10 @@
             this.menuproveedores.IconSize = 50;
             this.menuproveedores.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuproveedores.Name = "menuproveedores";
-            this.menuproveedores.Size = new System.Drawing.Size(80, 69);
+            this.menuproveedores.Size = new System.Drawing.Size(122, 69);
             this.menuproveedores.Text = "Proveedores";
             this.menuproveedores.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.menuproveedores.Click += new System.EventHandler(this.menuproveedores_Click);
+            this.menuproveedores.Click += new System.EventHandler(this.menuproveedores_Click_1);
             // 
             // menutitulo
             // 
@@ -284,7 +286,7 @@
             this.btnsalir.BackColor = System.Drawing.Color.Tan;
             this.btnsalir.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnsalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnsalir.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
+            this.btnsalir.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
             this.btnsalir.IconColor = System.Drawing.Color.Sienna;
             this.btnsalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnsalir.IconSize = 52;
@@ -331,6 +333,13 @@
             this.lblHora.Size = new System.Drawing.Size(17, 17);
             this.lblHora.TabIndex = 13;
             this.lblHora.Text = "H";
+            // 
+            // submenumarca
+            // 
+            this.submenumarca.Name = "submenumarca";
+            this.submenumarca.Size = new System.Drawing.Size(180, 22);
+            this.submenumarca.Text = "Marca";
+            this.submenumarca.Click += new System.EventHandler(this.marcaToolStripMenuItem_Click);
             // 
             // Inicio
             // 
@@ -384,6 +393,7 @@
         private System.Windows.Forms.Timer FechaHora;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblHora;
+        private System.Windows.Forms.ToolStripMenuItem submenumarca;
     }
 }
 

@@ -119,10 +119,10 @@ namespace CapaPresentacion
             AbrirFormulario((IconMenuItem)sender, new frmClientes());
         }
 
-        private void menuproveedores_Click(object sender, EventArgs e)
+        /*private void menuproveedores_Click(object sender, EventArgs e)
         {
             AbrirFormulario((IconMenuItem)sender, new frmProveedores());
-        }
+        }*/
 
         private void btnsalir_Click(object sender, EventArgs e)
         {
@@ -141,6 +141,16 @@ namespace CapaPresentacion
         {
 
 
+        }
+
+        private void menuproveedores_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormulario((IconMenuItem)sender, new frmProveedores());
+        }
+
+        private void marcaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menumantenedor, new frmMarca());
         }
     }
 }
