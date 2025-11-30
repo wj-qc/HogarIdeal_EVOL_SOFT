@@ -46,12 +46,14 @@
             this.btnbuscar = new FontAwesome.Sharp.IconButton();
             this.btnlimpiarbuscador = new FontAwesome.Sharp.IconButton();
             this.dgvdata = new System.Windows.Forms.DataGridView();
-            this.IdMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lugar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtindice = new System.Windows.Forms.TextBox();
             this.txtid = new System.Windows.Forms.TextBox();
+            this.IdMarca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LugarOrigen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EstadoValor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnexportar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +65,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(261, 359);
+            this.label1.Size = new System.Drawing.Size(261, 382);
             this.label1.TabIndex = 29;
             // 
             // label9
@@ -278,35 +280,14 @@
             this.dgvdata.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdMarca,
             this.Nombre,
-            this.Lugar,
+            this.LugarOrigen,
+            this.EstadoValor,
             this.Estado});
             this.dgvdata.Location = new System.Drawing.Point(315, 103);
             this.dgvdata.Name = "dgvdata";
             this.dgvdata.Size = new System.Drawing.Size(543, 231);
             this.dgvdata.TabIndex = 63;
             this.dgvdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvdata_CellContentClick);
-            // 
-            // IdMarca
-            // 
-            this.IdMarca.HeaderText = "Id";
-            this.IdMarca.Name = "IdMarca";
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre Marca";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 150;
-            // 
-            // Lugar
-            // 
-            this.Lugar.HeaderText = "Lugar de origen";
-            this.Lugar.Name = "Lugar";
-            this.Lugar.Width = 150;
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
             // 
             // txtindice
             // 
@@ -328,11 +309,61 @@
             this.txtid.Text = "0";
             this.txtid.Visible = false;
             // 
+            // IdMarca
+            // 
+            this.IdMarca.HeaderText = "Id";
+            this.IdMarca.Name = "IdMarca";
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre Marca";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 150;
+            // 
+            // LugarOrigen
+            // 
+            this.LugarOrigen.HeaderText = "Lugar de origen";
+            this.LugarOrigen.Name = "LugarOrigen";
+            this.LugarOrigen.Width = 150;
+            // 
+            // EstadoValor
+            // 
+            this.EstadoValor.HeaderText = "EstadoValor";
+            this.EstadoValor.Name = "EstadoValor";
+            this.EstadoValor.Visible = false;
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            // 
+            // btnexportar
+            // 
+            this.btnexportar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnexportar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnexportar.IconChar = FontAwesome.Sharp.IconChar.FileExcel;
+            this.btnexportar.IconColor = System.Drawing.Color.LimeGreen;
+            this.btnexportar.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.btnexportar.IconSize = 17;
+            this.btnexportar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnexportar.Location = new System.Drawing.Point(60, 349);
+            this.btnexportar.Name = "btnexportar";
+            this.btnexportar.Size = new System.Drawing.Size(132, 21);
+            this.btnexportar.TabIndex = 210;
+            this.btnexportar.Text = "Descargar Excel";
+            this.btnexportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnexportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnexportar.UseVisualStyleBackColor = false;
+            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
+            // 
             // frmMarca
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 359);
+            this.ClientSize = new System.Drawing.Size(903, 382);
+            this.Controls.Add(this.btnexportar);
             this.Controls.Add(this.txtid);
             this.Controls.Add(this.txtindice);
             this.Controls.Add(this.dgvdata);
@@ -382,11 +413,13 @@
         private FontAwesome.Sharp.IconButton btnbuscar;
         private FontAwesome.Sharp.IconButton btnlimpiarbuscador;
         private System.Windows.Forms.DataGridView dgvdata;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdMarca;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lugar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
         private System.Windows.Forms.TextBox txtindice;
         private System.Windows.Forms.TextBox txtid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdMarca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LugarOrigen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EstadoValor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private FontAwesome.Sharp.IconButton btnexportar;
     }
 }

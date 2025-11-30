@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Data;
 
 namespace CapaPresentacion
 {
@@ -171,7 +173,7 @@ namespace CapaPresentacion
 
         private void dgvdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
+            /*if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
             {
                 int indice = e.RowIndex;
 
@@ -186,12 +188,50 @@ namespace CapaPresentacion
                     {
                         if (Convert.ToInt32(oc.Valor) == Convert.ToInt32(dgvdata.Rows[indice].Cells["EstadoValor"].Value))
                         {
+                            int indice_combo = cboestado.Items.IndexOf(oc);
+                            cboestado.SelectedIndex = cboestado.Items.IndexOf(oc);
+                            break;
+                        }
+                    }
+                }
+            }*/
+
+            if (dgvdata.Columns[e.ColumnIndex].Name == "btnseleccionar")
+            {
+                int indice = e.RowIndex;
+
+                if (indice >= 0)
+                {
+                    txtindice.Text = indice.ToString();
+
+                    // VALIDACIÓN SEGURA
+                    var valor = dgvdata.Rows[indice].Cells["IdMarca"].Value;
+
+                    if (valor != null && int.TryParse(valor.ToString(), out int idMarca))
+                    {
+                        txtid.Text = idMarca.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El valor de la marca seleccionada no es válido.",
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    txtMarca.Text = dgvdata.Rows[indice].Cells["Nombre"].Value.ToString();
+                    txtLugar.Text = dgvdata.Rows[indice].Cells["LugarOrigen"].Value.ToString();
+
+                    foreach (OpcionCombo oc in cboestado.Items)
+                    {
+                        if (Convert.ToInt32(oc.Valor) == Convert.ToInt32(dgvdata.Rows[indice].Cells["EstadoValor"].Value))
+                        {
                             cboestado.SelectedIndex = cboestado.Items.IndexOf(oc);
                             break;
                         }
                     }
                 }
             }
+
         }
 
         private void btneliminar_Click(object sender, EventArgs e)
@@ -244,6 +284,59 @@ namespace CapaPresentacion
             foreach (DataGridViewRow row in dgvdata.Rows)
             {
                 row.Visible = true;
+            }
+        }
+
+        private void btnexportar_Click(object sender, EventArgs e)
+        {
+            if (dgvdata.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Crear tabla dinámica basada en columnas visibles
+            var tabla = new DataTable();
+
+            List<int> columnasExportables = new List<int>();
+
+            foreach (DataGridViewColumn col in dgvdata.Columns)
+            {
+                if (col.Visible && col.Name != "btnseleccionar")
+                {
+                    tabla.Columns.Add(col.HeaderText);
+                    columnasExportables.Add(col.Index);
+                }
+            }
+
+            // Agregar filas correspondientes
+            foreach (DataGridViewRow row in dgvdata.Rows)
+            {
+                var valores = new List<object>();
+
+                foreach (int index in columnasExportables)
+                    valores.Add(row.Cells[index].Value);
+
+                tabla.Rows.Add(valores.ToArray());
+            }
+
+            using (var sfd = new SaveFileDialog() { Filter = "Archivo CSV (*.csv)|*.csv", FileName = "MarcasExportadas.csv" })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    /*using (var sw = new StreamWriter(sfd.FileName))*/
+                    using (var sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+                    {
+                        // Escribir encabezados
+                        sw.WriteLine(string.Join(";", tabla.Columns.Cast<DataColumn>().Select(c => c.ColumnName)));
+
+                        // Escribir filas
+                        foreach (DataRow dr in tabla.Rows)
+                            sw.WriteLine(string.Join(";", dr.ItemArray));
+                    }
+
+                    MessageBox.Show("Exportación completada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }
