@@ -34,6 +34,7 @@
             this.menumantenedor = new FontAwesome.Sharp.IconMenuItem();
             this.submenucategoria = new FontAwesome.Sharp.IconMenuItem();
             this.submenuproducto = new FontAwesome.Sharp.IconMenuItem();
+            this.submenumarca = new System.Windows.Forms.ToolStripMenuItem();
             this.menuventas = new FontAwesome.Sharp.IconMenuItem();
             this.submenuregistrarventa = new FontAwesome.Sharp.IconMenuItem();
             this.submenuverdetalleventa = new FontAwesome.Sharp.IconMenuItem();
@@ -52,7 +53,7 @@
             this.FechaHora = new System.Windows.Forms.Timer(this.components);
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
-            this.submenumarca = new System.Windows.Forms.ToolStripMenuItem();
+            this.submenurecursointerno = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +94,8 @@
             this.menumantenedor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.submenucategoria,
             this.submenuproducto,
-            this.submenumarca});
+            this.submenumarca,
+            this.submenurecursointerno});
             this.menumantenedor.IconChar = FontAwesome.Sharp.IconChar.ScrewdriverWrench;
             this.menumantenedor.IconColor = System.Drawing.Color.Black;
             this.menumantenedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -123,6 +125,13 @@
             this.submenuproducto.Size = new System.Drawing.Size(180, 22);
             this.submenuproducto.Text = "Producto";
             this.submenuproducto.Click += new System.EventHandler(this.submenuproducto_Click);
+            // 
+            // submenumarca
+            // 
+            this.submenumarca.Name = "submenumarca";
+            this.submenumarca.Size = new System.Drawing.Size(180, 22);
+            this.submenumarca.Text = "Marca";
+            this.submenumarca.Click += new System.EventHandler(this.marcaToolStripMenuItem_Click);
             // 
             // menuventas
             // 
@@ -334,12 +343,12 @@
             this.lblHora.TabIndex = 13;
             this.lblHora.Text = "H";
             // 
-            // submenumarca
+            // submenurecursointerno
             // 
-            this.submenumarca.Name = "submenumarca";
-            this.submenumarca.Size = new System.Drawing.Size(180, 22);
-            this.submenumarca.Text = "Marca";
-            this.submenumarca.Click += new System.EventHandler(this.marcaToolStripMenuItem_Click);
+            this.submenurecursointerno.Name = "submenurecursointerno";
+            this.submenurecursointerno.Size = new System.Drawing.Size(180, 22);
+            this.submenurecursointerno.Text = "Recurso Interno";
+            this.submenurecursointerno.Click += new System.EventHandler(this.submenurecursointerno_Click);
             // 
             // Inicio
             // 
@@ -394,6 +403,7 @@
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.ToolStripMenuItem submenumarca;
+        private System.Windows.Forms.ToolStripMenuItem submenurecursointerno;
     }
 }
 

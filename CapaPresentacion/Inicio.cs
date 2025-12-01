@@ -152,5 +152,10 @@ namespace CapaPresentacion
         {
             AbrirFormulario(menumantenedor, new frmMarca());
         }
+
+        private void submenurecursointerno_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menumantenedor, new frmRecursoInterno());
+        }
     }
 }
