@@ -154,6 +154,17 @@ Logo varbinary(max) NULL
 
 go
 
+CREATE TABLE RECURSO_INTERNO (
+    IdRecurso      INT PRIMARY KEY IDENTITY,
+    NombreRecurso  VARCHAR(80)  NOT NULL,  
+    TipoRecurso    VARCHAR(50)  NULL,      
+    Cantidad       INT          NOT NULL,  
+    Ubicacion      VARCHAR(80)  NULL,      
+    Estado         BIT          DEFAULT 1, 
+    FechaRegistro  DATETIME     DEFAULT GETDATE()
+);
+GO
+
 
 /*************************** CREACION DE PROCEDIMIENTOS ALMACENADOS ***************************/
 /*--------------------------------------------------------------------------------------------*/
