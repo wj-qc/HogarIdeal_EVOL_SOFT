@@ -165,6 +165,19 @@ CREATE TABLE RECURSO_INTERNO (
 );
 GO
 
+create table PROMOCION(
+IdPromocion int primary key identity,
+Nombre varchar(100),
+Descripcion varchar(200),
+PorcentajeDescuento decimal(5,2),
+FechaInicio datetime,
+FechaFin datetime,
+Estado bit,
+FechaRegistro datetime default getdate()
+)
+
+go
+
 
 /*************************** CREACION DE PROCEDIMIENTOS ALMACENADOS ***************************/
 /*--------------------------------------------------------------------------------------------*/
@@ -175,7 +188,7 @@ CREATE PROC SP_REGISTRARUSUARIO(
     @ApellidoPaterno varchar(50),
     @ApellidoMaterno varchar(50),
     @Correo varchar(100),
-    @Clave varchar(100),              -- Sin el parámetro de confirmar clave
+    @Clave varchar(100),              -- Sin el parï¿½metro de confirmar clave
     @IdRol int,
     @Estado bit,
     @IdUsuarioResultado int OUTPUT,
@@ -186,17 +199,17 @@ BEGIN
     SET @IdUsuarioResultado = 0
     SET @Mensaje = ''
 
-    -- Validar que la clave tenga una longitud mínima
+    -- Validar que la clave tenga una longitud mï¿½nima
     IF LEN(@Clave) < 8 OR LEN(@Clave) > 20
     BEGIN
         SET @Mensaje = 'La clave debe tener entre 8 y 20 caracteres.'
         RETURN
     END
 
-    -- Validar que el documento tenga exactamente 8 dígitos, solo números, y no tenga espacios
+    -- Validar que el documento tenga exactamente 8 dï¿½gitos, solo nï¿½meros, y no tenga espacios
     IF LEN(@Documento) = 8 AND @Documento NOT LIKE '%[^0-9]%'
     BEGIN
-        -- Validar que el nombre, apellido paterno y apellido materno no contengan números ni caracteres especiales
+        -- Validar que el nombre, apellido paterno y apellido materno no contengan nï¿½meros ni caracteres especiales
         IF PATINDEX('%[0-9]%', @NombreCompleto) = 0 AND 
            PATINDEX('%[0-9]%', @ApellidoPaterno) = 0 AND 
            PATINDEX('%[0-9]%', @ApellidoMaterno) = 0 AND 
@@ -225,27 +238,27 @@ BEGIN
                     END
                     ELSE
                     BEGIN
-                        SET @Mensaje = 'El correo ya está en uso por otro usuario. Por favor, utiliza otro.'
+                        SET @Mensaje = 'El correo ya estï¿½ en uso por otro usuario. Por favor, utiliza otro.'
                     END
                 END
                 ELSE
                 BEGIN
-                    SET @Mensaje = 'El número de documento ya existe para otro usuario.'
+                    SET @Mensaje = 'El nï¿½mero de documento ya existe para otro usuario.'
                 END
             END
             ELSE
             BEGIN
-                SET @Mensaje = 'El correo no es válido. Asegúrate de que tenga entre 5 y 20 caracteres antes del dominio y que sea de un dominio autorizado (@gmail.com o @outlook.com).'
+                SET @Mensaje = 'El correo no es vï¿½lido. Asegï¿½rate de que tenga entre 5 y 20 caracteres antes del dominio y que sea de un dominio autorizado (@gmail.com o @outlook.com).'
             END
         END
         ELSE
         BEGIN
-            SET @Mensaje = 'El nombre, apellido paterno y apellido materno deben tener solo letras, sin números ni caracteres especiales.'
+            SET @Mensaje = 'El nombre, apellido paterno y apellido materno deben tener solo letras, sin nï¿½meros ni caracteres especiales.'
         END
     END
     ELSE
     BEGIN
-        SET @Mensaje = 'El documento debe tener exactamente 8 dígitos, solo números, y no debe contener espacios.'
+        SET @Mensaje = 'El documento debe tener exactamente 8 dï¿½gitos, solo nï¿½meros, y no debe contener espacios.'
     END
 END
 GO
@@ -269,17 +282,17 @@ BEGIN
     SET @Respuesta = 0
     SET @Mensaje = ''
 
-    -- Validar que la clave tenga una longitud mínima
+    -- Validar que la clave tenga una longitud mï¿½nima
     IF LEN(@Clave) < 8 OR LEN(@Clave) > 20
     BEGIN
         SET @Mensaje = 'La clave debe tener entre 8 y 20 caracteres.'
         RETURN
     END
 
-    -- Validar que el documento tenga exactamente 8 dígitos, solo números, y no tenga espacios
+    -- Validar que el documento tenga exactamente 8 dï¿½gitos, solo nï¿½meros, y no tenga espacios
     IF LEN(@Documento) = 8 AND @Documento NOT LIKE '%[^0-9]%'
     BEGIN
-        -- Validar que el nombre completo y apellidos no contengan números ni caracteres especiales
+        -- Validar que el nombre completo y apellidos no contengan nï¿½meros ni caracteres especiales
         IF LEN(@NombreCompleto) BETWEEN 2 AND 100 
             AND PATINDEX('%[0-9]%', @NombreCompleto) = 0 
             AND PATINDEX('%[^A-Za-z ]%', @NombreCompleto) = 0
@@ -318,27 +331,27 @@ BEGIN
                     END
                     ELSE
                     BEGIN
-                        SET @Mensaje = 'El correo ya está en uso por otro usuario. Por favor, utiliza otro.'
+                        SET @Mensaje = 'El correo ya estï¿½ en uso por otro usuario. Por favor, utiliza otro.'
                     END
                 END
                 ELSE
                 BEGIN
-                    SET @Mensaje = 'El número de documento ya existe para otro usuario.'
+                    SET @Mensaje = 'El nï¿½mero de documento ya existe para otro usuario.'
                 END
             END
             ELSE
             BEGIN
-                SET @Mensaje = 'El correo no es válido. Asegúrate de que tenga entre 5 y 20 caracteres antes del dominio y que sea de un dominio autorizado (@gmail.com o @outlook.com).'
+                SET @Mensaje = 'El correo no es vï¿½lido. Asegï¿½rate de que tenga entre 5 y 20 caracteres antes del dominio y que sea de un dominio autorizado (@gmail.com o @outlook.com).'
             END
         END
         ELSE
         BEGIN
-            SET @Mensaje = 'El nombre y apellidos deben tener solo letras, sin números ni caracteres especiales.'
+            SET @Mensaje = 'El nombre y apellidos deben tener solo letras, sin nï¿½meros ni caracteres especiales.'
         END
     END
     ELSE
     BEGIN
-        SET @Mensaje = 'El documento debe tener exactamente 8 dígitos, solo números, y no debe contener espacios.'
+        SET @Mensaje = 'El documento debe tener exactamente 8 dï¿½gitos, solo nï¿½meros, y no debe contener espacios.'
     END
 END
 GO
@@ -347,7 +360,7 @@ GO
 
 CREATE PROC SP_ELIMINARUSUARIO(
     @IdUsuario int,
-    @Clave varchar(100),              -- Parámetro para la clave
+    @Clave varchar(100),              -- Parï¿½metro para la clave
     @Respuesta bit OUTPUT,
     @Mensaje varchar(500) OUTPUT
 )
@@ -358,7 +371,7 @@ BEGIN
     DECLARE @pasoreglas bit = 1
     DECLARE @ClaveGuardada varchar(100)
 
-    -- Validar que la clave tenga una longitud mínima
+    -- Validar que la clave tenga una longitud mï¿½nima
     IF LEN(@Clave) < 8 OR LEN(@Clave) > 20
     BEGIN
         SET @Mensaje = 'La clave debe tener entre 8 y 20 caracteres.'
@@ -380,24 +393,24 @@ BEGIN
         RETURN
     END
 
-    -- Verificar si el usuario tiene relación con una compra
+    -- Verificar si el usuario tiene relaciï¿½n con una compra
     IF EXISTS (SELECT * FROM COMPRA C 
                INNER JOIN USUARIO U ON U.IdUsuario = C.IdUsuario
                WHERE U.IDUSUARIO = @IdUsuario)
     BEGIN
         SET @pasoreglas = 0
         SET @Respuesta = 0
-        SET @Mensaje = @Mensaje + 'No se puede eliminar porque el usuario está relacionado a una COMPRA.\n' 
+        SET @Mensaje = @Mensaje + 'No se puede eliminar porque el usuario estï¿½ relacionado a una COMPRA.\n' 
     END
 
-    -- Verificar si el usuario tiene relación con una venta
+    -- Verificar si el usuario tiene relaciï¿½n con una venta
     IF EXISTS (SELECT * FROM VENTA V
                INNER JOIN USUARIO U ON U.IdUsuario = V.IdUsuario
                WHERE U.IDUSUARIO = @IdUsuario)
     BEGIN
         SET @pasoreglas = 0
         SET @Respuesta = 0
-        SET @Mensaje = @Mensaje + 'No se puede eliminar porque el usuario está relacionado a una VENTA.\n' 
+        SET @Mensaje = @Mensaje + 'No se puede eliminar porque el usuario estï¿½ relacionado a una VENTA.\n' 
     END
 
     -- Si el usuario no tiene relaciones con compras o ventas, proceder a eliminar
@@ -426,16 +439,16 @@ BEGIN
     SET @Resultado = 0
     SET @Mensaje = ''
 
-    -- Validar que la descripción tenga una longitud válida y no contenga números ni caracteres especiales
+    -- Validar que la descripciï¿½n tenga una longitud vï¿½lida y no contenga nï¿½meros ni caracteres especiales
     IF LEN(@Descripcion) < 2 OR LEN(@Descripcion) > 50 OR
        PATINDEX('%[0-9]%', @Descripcion) > 0 OR 
        PATINDEX('%[^A-Za-z ]%', @Descripcion) > 0
     BEGIN
-        SET @Mensaje = 'La descripción debe tener entre 2 y 50 caracteres y no puede contener números ni caracteres especiales.'
+        SET @Mensaje = 'La descripciï¿½n debe tener entre 2 y 50 caracteres y no puede contener nï¿½meros ni caracteres especiales.'
         RETURN
     END
 
-    -- Verificar si la categoría ya existe
+    -- Verificar si la categorï¿½a ya existe
     IF NOT EXISTS (SELECT * FROM CATEGORIA WHERE Descripcion = @Descripcion)
     BEGIN
         INSERT INTO CATEGORIA(Descripcion, Estado) 
@@ -444,7 +457,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        SET @Mensaje = 'No se puede repetir la descripción de una categoría.'
+        SET @Mensaje = 'No se puede repetir la descripciï¿½n de una categorï¿½a.'
     END
 END
 GO
@@ -463,17 +476,17 @@ BEGIN
     SET @Resultado = 1
     SET @Mensaje = ''
 
-    -- Validar que la descripción tenga una longitud válida y no contenga números ni caracteres especiales
+    -- Validar que la descripciï¿½n tenga una longitud vï¿½lida y no contenga nï¿½meros ni caracteres especiales
     IF LEN(@Descripcion) < 2 OR LEN(@Descripcion) > 50 OR
        PATINDEX('%[0-9]%', @Descripcion) > 0 OR 
        PATINDEX('%[^A-Za-z ]%', @Descripcion) > 0
     BEGIN
-        SET @Mensaje = 'La descripción debe tener entre 2 y 50 caracteres y no puede contener números ni caracteres especiales.'
+        SET @Mensaje = 'La descripciï¿½n debe tener entre 2 y 50 caracteres y no puede contener nï¿½meros ni caracteres especiales.'
         SET @Resultado = 0
         RETURN
     END
 
-    -- Verificar si la categoría ya existe
+    -- Verificar si la categorï¿½a ya existe
     IF NOT EXISTS (SELECT * FROM CATEGORIA WHERE Descripcion = @Descripcion AND IdCategoria != @IdCategoria)
     BEGIN
         UPDATE CATEGORIA
@@ -484,7 +497,7 @@ BEGIN
     ELSE
     BEGIN
         SET @Resultado = 0
-        SET @Mensaje = 'No se puede repetir la descripción de una categoría.'
+        SET @Mensaje = 'No se puede repetir la descripciï¿½n de una categorï¿½a.'
     END
 END
 GO
@@ -501,10 +514,10 @@ BEGIN
     SET @Resultado = 1
     SET @Mensaje = ''
 
-    -- Verificar si la categoría existe antes de eliminar
+    -- Verificar si la categorï¿½a existe antes de eliminar
     IF EXISTS (SELECT * FROM CATEGORIA WHERE IdCategoria = @IdCategoria)
     BEGIN
-        -- Verificar si la categoría está relacionada con algún producto
+        -- Verificar si la categorï¿½a estï¿½ relacionada con algï¿½n producto
         IF NOT EXISTS (
             SELECT * FROM CATEGORIA c
             INNER JOIN PRODUCTO p ON p.IdCategoria = c.IdCategoria
@@ -521,13 +534,13 @@ BEGIN
         ELSE
         BEGIN
             SET @Resultado = 0
-            SET @Mensaje = 'La categoría no puede ser eliminada porque está relacionada a un producto o proveedor.'
+            SET @Mensaje = 'La categorï¿½a no puede ser eliminada porque estï¿½ relacionada a un producto o proveedor.'
         END
     END
     ELSE
     BEGIN
         SET @Resultado = 0
-        SET @Mensaje = 'La categoría no existe.'
+        SET @Mensaje = 'La categorï¿½a no existe.'
     END
 END
 GO
@@ -571,7 +584,7 @@ AS
 BEGIN
     SET @Resultado = 1;
     
-    -- Verificar si el código existe para otro producto
+    -- Verificar si el cï¿½digo existe para otro producto
     IF NOT EXISTS (SELECT * FROM PRODUCTO WHERE Codigo = @Codigo AND IdProducto != @IdProducto)
     BEGIN
         -- Actualizar el producto
@@ -584,19 +597,19 @@ BEGIN
             Estado = @Estado
         WHERE IdProducto = @IdProducto;
 
-        -- Generar el siguiente código
+        -- Generar el siguiente cï¿½digo
         DECLARE @MaxCodigo INT;
         
-        -- Obtener el código máximo actual
+        -- Obtener el cï¿½digo mï¿½ximo actual
         SELECT @MaxCodigo = MAX(CAST(Codigo AS INT)) FROM PRODUCTO;
 
-        -- Aumentar el código y asignarlo al siguiente producto
+        -- Aumentar el cï¿½digo y asignarlo al siguiente producto
         SET @Codigo = CAST(@MaxCodigo + 1 AS VARCHAR(20));
     END
     ELSE
     BEGIN
         SET @Resultado = 0;
-        SET @Mensaje = 'Ya existe un producto con el mismo código'; 
+        SET @Mensaje = 'Ya existe un producto con el mismo cï¿½digo'; 
     END
 END
 GO
@@ -660,10 +673,10 @@ BEGIN
     SET @Resultado = 0
     SET @Mensaje = ''
 
- -- Validar documento (8 dígitos numéricos sin espacios)
+ -- Validar documento (8 dï¿½gitos numï¿½ricos sin espacios)
     IF LEN(@Documento) = 8 AND ISNUMERIC(@Documento) = 1 AND CHARINDEX(' ', @Documento) = 0
     BEGIN
-        -- Validar teléfono (9 dígitos, empieza con 9, solo números, sin espacios)
+        -- Validar telï¿½fono (9 dï¿½gitos, empieza con 9, solo nï¿½meros, sin espacios)
         IF LEN(@Telefono) = 9 AND LEFT(@Telefono, 1) = '9' AND ISNUMERIC(@Telefono) = 1 AND CHARINDEX(' ', @Telefono) = 0
         BEGIN
             -- Validar nombre y apellidos
@@ -689,19 +702,19 @@ BEGIN
                         SET @Resultado = SCOPE_IDENTITY()
                     END
                     ELSE
-                        SET @Mensaje = 'El número de teléfono ya está en uso por otro cliente.'
+                        SET @Mensaje = 'El nï¿½mero de telï¿½fono ya estï¿½ en uso por otro cliente.'
                 END
                 ELSE
-                    SET @Mensaje = 'El número de documento ya existe.'
+                    SET @Mensaje = 'El nï¿½mero de documento ya existe.'
             END
             ELSE
-                SET @Mensaje = 'El nombre o apellidos deben tener entre 2 y 30 caracteres, sin números ni símbolos.'
+                SET @Mensaje = 'El nombre o apellidos deben tener entre 2 y 30 caracteres, sin nï¿½meros ni sï¿½mbolos.'
         END
         ELSE
-            SET @Mensaje = 'El teléfono debe tener 9 dígitos, empezar con 9 y no contener espacios.'
+            SET @Mensaje = 'El telï¿½fono debe tener 9 dï¿½gitos, empezar con 9 y no contener espacios.'
     END
     ELSE
-        SET @Mensaje = 'El documento debe tener exactamente 8 dígitos numéricos sin espacios.'
+        SET @Mensaje = 'El documento debe tener exactamente 8 dï¿½gitos numï¿½ricos sin espacios.'
 END
 GO
 
@@ -721,10 +734,10 @@ BEGIN
     SET @Resultado = 1
     SET @Mensaje = ''
 
-    -- Validar documento (8 dígitos numéricos sin espacios)
+    -- Validar documento (8 dï¿½gitos numï¿½ricos sin espacios)
     IF LEN(@Documento) = 8 AND ISNUMERIC(@Documento) = 1 AND CHARINDEX(' ', @Documento) = 0
     BEGIN
-        -- Validar teléfono (9 dígitos, empieza con 9, solo números, sin espacios)
+        -- Validar telï¿½fono (9 dï¿½gitos, empieza con 9, solo nï¿½meros, sin espacios)
         IF LEN(@Telefono) = 9 AND LEFT(@Telefono, 1) = '9' AND ISNUMERIC(@Telefono) = 1 AND CHARINDEX(' ', @Telefono) = 0
         BEGIN
             -- Validar nombre y apellidos
@@ -757,31 +770,31 @@ BEGIN
                     ELSE
                     BEGIN
                         SET @Resultado = 0
-                        SET @Mensaje = 'El número de teléfono ya está en uso por otro cliente.'
+                        SET @Mensaje = 'El nï¿½mero de telï¿½fono ya estï¿½ en uso por otro cliente.'
                     END
                 END
                 ELSE
                 BEGIN
                     SET @Resultado = 0
-                    SET @Mensaje = 'El número de documento ya existe.'
+                    SET @Mensaje = 'El nï¿½mero de documento ya existe.'
                 END
             END
             ELSE
             BEGIN
                 SET @Resultado = 0
-                SET @Mensaje = 'El nombre o apellidos deben tener entre 2 y 30 caracteres y no contener números ni símbolos.'
+                SET @Mensaje = 'El nombre o apellidos deben tener entre 2 y 30 caracteres y no contener nï¿½meros ni sï¿½mbolos.'
             END
         END
         ELSE
         BEGIN
             SET @Resultado = 0
-            SET @Mensaje = 'El teléfono debe tener 9 dígitos, empezar con 9 y no contener espacios.'
+            SET @Mensaje = 'El telï¿½fono debe tener 9 dï¿½gitos, empezar con 9 y no contener espacios.'
         END
     END
     ELSE
     BEGIN
         SET @Resultado = 0
-        SET @Mensaje = 'El documento debe tener exactamente 8 dígitos, solo números y sin espacios.'
+        SET @Mensaje = 'El documento debe tener exactamente 8 dï¿½gitos, solo nï¿½meros y sin espacios.'
     END
 END
 GO
@@ -804,13 +817,13 @@ BEGIN
     -- Validaciones
     IF LEN(@Documento) != 8 OR @Documento NOT LIKE '[0-12]%'
     BEGIN
-        SET @Mensaje = 'El documento debe tener exactamente 12 dígitos y ser numérico.';
+        SET @Mensaje = 'El documento debe tener exactamente 12 dï¿½gitos y ser numï¿½rico.';
         RETURN;
     END
 
     IF LEN(@Telefono) != 9 OR @Telefono NOT LIKE '9[0-9]%'
     BEGIN
-        SET @Mensaje = 'El teléfono debe tener exactamente 9 dígitos y comenzar con 9.';
+        SET @Mensaje = 'El telï¿½fono debe tener exactamente 9 dï¿½gitos y comenzar con 9.';
         RETURN;
     END
 
@@ -819,11 +832,11 @@ BEGIN
         AND @RazonSocial NOT LIKE '%..%' 
         AND @RazonSocial NOT LIKE '.%')
     BEGIN
-        SET @Mensaje = 'El nombre debe tener entre 2 y 30 caracteres, no contener números o múltiples espacios.';
+        SET @Mensaje = 'El nombre debe tener entre 2 y 30 caracteres, no contener nï¿½meros o mï¿½ltiples espacios.';
         RETURN;
     END
 
-    -- Validación de correo
+    -- Validaciï¿½n de correo
     IF LEN(@Correo) < 5 OR LEN(@Correo) > 20 OR 
        @Correo NOT LIKE '%[a-zA-Z]%' OR 
        @Correo NOT LIKE '%_@_%._%' OR 
@@ -832,35 +845,35 @@ BEGIN
        @Correo LIKE '%  %' OR 
        @Correo LIKE '%[^a-zA-Z0-9@._]%'
     BEGIN
-        SET @Mensaje = 'El correo debe tener entre 5 y 20 caracteres, contener al menos 5 letras, y ser de un dominio autorizado sin espacios ni símbolos inválidos.';
+        SET @Mensaje = 'El correo debe tener entre 5 y 20 caracteres, contener al menos 5 letras, y ser de un dominio autorizado sin espacios ni sï¿½mbolos invï¿½lidos.';
         RETURN;
     END
 
-    -- Validar que no exista el documento, correo o teléfono
+    -- Validar que no exista el documento, correo o telï¿½fono
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Documento = @Documento)
     BEGIN
-        SET @Mensaje = 'El número de documento ya existe.';
+        SET @Mensaje = 'El nï¿½mero de documento ya existe.';
         RETURN;
     END
 
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Correo = @Correo)
     BEGIN
-        SET @Mensaje = 'El correo ya está registrado.';
+        SET @Mensaje = 'El correo ya estï¿½ registrado.';
         RETURN;
     END
 
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Telefono = @Telefono)
     BEGIN
-        SET @Mensaje = 'El número de teléfono ya está registrado.';
+        SET @Mensaje = 'El nï¿½mero de telï¿½fono ya estï¿½ registrado.';
         RETURN;
     END
 
-    -- Inserción
+    -- Inserciï¿½n
     INSERT INTO PROVEEDOR (Documento, RazonSocial, Correo, Telefono, Estado, IdCategoria)
     VALUES (@Documento, @RazonSocial, @Correo, @Telefono, @Estado, @IdCategoria);
 
     SET @Resultado = SCOPE_IDENTITY();
-    SET @Mensaje = 'Proveedor registrado con éxito.';
+    SET @Mensaje = 'Proveedor registrado con ï¿½xito.';
 END
 GO
 
@@ -881,13 +894,13 @@ BEGIN
     -- Validaciones
     IF LEN(@Documento) != 8 OR @Documento NOT LIKE '[0-9]%'
     BEGIN
-        SET @Mensaje = 'El documento debe tener exactamente 8 dígitos y ser numérico.';
+        SET @Mensaje = 'El documento debe tener exactamente 8 dï¿½gitos y ser numï¿½rico.';
         RETURN;
     END
 
     IF LEN(@Telefono) != 9 OR @Telefono NOT LIKE '9[0-9]%'
     BEGIN
-        SET @Mensaje = 'El teléfono debe tener exactamente 9 dígitos y comenzar con 9.';
+        SET @Mensaje = 'El telï¿½fono debe tener exactamente 9 dï¿½gitos y comenzar con 9.';
         RETURN;
     END
 
@@ -896,11 +909,11 @@ BEGIN
         AND @RazonSocial NOT LIKE '%..%' 
         AND @RazonSocial NOT LIKE '.%')
     BEGIN
-        SET @Mensaje = 'El nombre debe tener entre 2 y 30 caracteres, no contener números o múltiples espacios.';
+        SET @Mensaje = 'El nombre debe tener entre 2 y 30 caracteres, no contener nï¿½meros o mï¿½ltiples espacios.';
         RETURN;
     END
 
-    -- Validación de correo
+    -- Validaciï¿½n de correo
     IF LEN(@Correo) < 5 OR LEN(@Correo) > 20 OR 
        @Correo NOT LIKE '%[a-zA-Z]%' OR 
        @Correo NOT LIKE '%_@_%._%' OR 
@@ -909,30 +922,30 @@ BEGIN
        @Correo LIKE '%  %' OR 
        @Correo LIKE '%[^a-zA-Z0-9@._]%'
     BEGIN
-        SET @Mensaje = 'El correo debe tener entre 5 y 20 caracteres, contener al menos 5 letras, y ser de un dominio autorizado sin espacios ni símbolos inválidos.';
+        SET @Mensaje = 'El correo debe tener entre 5 y 20 caracteres, contener al menos 5 letras, y ser de un dominio autorizado sin espacios ni sï¿½mbolos invï¿½lidos.';
         RETURN;
     END
 
-    -- Validar que no exista el documento, correo o teléfono
+    -- Validar que no exista el documento, correo o telï¿½fono
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Documento = @Documento AND IdProveedor != @IdProveedor)
     BEGIN
-        SET @Mensaje = 'El número de documento ya existe.';
+        SET @Mensaje = 'El nï¿½mero de documento ya existe.';
         RETURN;
     END
 
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Correo = @Correo AND IdProveedor != @IdProveedor)
     BEGIN
-        SET @Mensaje = 'El correo ya está registrado.';
+        SET @Mensaje = 'El correo ya estï¿½ registrado.';
         RETURN;
     END
 
     IF EXISTS (SELECT * FROM PROVEEDOR WHERE Telefono = @Telefono AND IdProveedor != @IdProveedor)
     BEGIN
-        SET @Mensaje = 'El número de teléfono ya está registrado.';
+        SET @Mensaje = 'El nï¿½mero de telï¿½fono ya estï¿½ registrado.';
         RETURN;
     END
 
-    -- Actualización
+    -- Actualizaciï¿½n
     UPDATE PROVEEDOR 
     SET Documento = @Documento,
         RazonSocial = @RazonSocial,
@@ -942,7 +955,7 @@ BEGIN
         IdCategoria = @IdCategoria -- Actualizar IdCategoria
     WHERE IdProveedor = @IdProveedor;
 
-    SET @Mensaje = 'Proveedor modificado con éxito.';
+    SET @Mensaje = 'Proveedor modificado con ï¿½xito.';
 END
 GO
 
@@ -1072,6 +1085,138 @@ END
 GO
 
 
+/* ---------- PROCEDIMIENTOS PARA PROMOCION -----------------*/
+
+CREATE PROC SP_RegistrarPromocion(
+    @Nombre varchar(100),
+    @Descripcion varchar(200),
+    @PorcentajeDescuento decimal(5,2),
+    @FechaInicio datetime,
+    @FechaFin datetime,
+    @Estado bit,
+    @Resultado int OUTPUT,
+    @Mensaje varchar(500) OUTPUT
+)
+AS
+BEGIN
+    SET @Resultado = 0
+    SET @Mensaje = ''
+    
+    IF LEN(@Nombre) < 2 OR LEN(@Nombre) > 100
+    BEGIN
+        SET @Mensaje = 'El nombre debe tener entre 2 y 100 caracteres.'
+        RETURN
+    END
+    
+    IF @PorcentajeDescuento < 0 OR @PorcentajeDescuento > 100
+    BEGIN
+        SET @Mensaje = 'El porcentaje de descuento debe estar entre 0 y 100.'
+        RETURN
+    END
+    
+    IF @FechaFin <= @FechaInicio
+    BEGIN
+        SET @Mensaje = 'La fecha de fin debe ser mayor a la fecha de inicio.'
+        RETURN
+    END
+    
+    IF NOT EXISTS (SELECT * FROM PROMOCION WHERE Nombre = @Nombre)
+    BEGIN
+        INSERT INTO PROMOCION(Nombre, Descripcion, PorcentajeDescuento, FechaInicio, FechaFin, Estado)
+        VALUES(@Nombre, @Descripcion, @PorcentajeDescuento, @FechaInicio, @FechaFin, @Estado)
+        
+        SET @Resultado = SCOPE_IDENTITY()
+        SET @Mensaje = 'PromociÃ³n registrada exitosamente.'
+    END
+    ELSE
+    BEGIN
+        SET @Mensaje = 'Ya existe una promociÃ³n con este nombre.'
+    END
+END
+GO
+
+CREATE PROC sp_EditarPromocion(
+    @IdPromocion int,
+    @Nombre varchar(100),
+    @Descripcion varchar(200),
+    @PorcentajeDescuento decimal(5,2),
+    @FechaInicio datetime,
+    @FechaFin datetime,
+    @Estado bit,
+    @Resultado bit OUTPUT,
+    @Mensaje varchar(500) OUTPUT
+)
+AS
+BEGIN
+    SET @Resultado = 1
+    SET @Mensaje = ''
+    
+    IF LEN(@Nombre) < 2 OR LEN(@Nombre) > 100
+    BEGIN
+        SET @Mensaje = 'El nombre debe tener entre 2 y 100 caracteres.'
+        SET @Resultado = 0
+        RETURN
+    END
+    
+    IF @PorcentajeDescuento < 0 OR @PorcentajeDescuento > 100
+    BEGIN
+        SET @Mensaje = 'El porcentaje de descuento debe estar entre 0 y 100.'
+        SET @Resultado = 0
+        RETURN
+    END
+    
+    IF @FechaFin <= @FechaInicio
+    BEGIN
+        SET @Mensaje = 'La fecha de fin debe ser mayor a la fecha de inicio.'
+        SET @Resultado = 0
+        RETURN
+    END
+    
+    IF NOT EXISTS (SELECT * FROM PROMOCION WHERE Nombre = @Nombre AND IdPromocion != @IdPromocion)
+    BEGIN
+        UPDATE PROMOCION
+        SET Nombre = @Nombre,
+            Descripcion = @Descripcion,
+            PorcentajeDescuento = @PorcentajeDescuento,
+            FechaInicio = @FechaInicio,
+            FechaFin = @FechaFin,
+            Estado = @Estado
+        WHERE IdPromocion = @IdPromocion
+        
+        SET @Mensaje = 'PromociÃ³n editada exitosamente.'
+    END
+    ELSE
+    BEGIN
+        SET @Resultado = 0
+        SET @Mensaje = 'Ya existe una promociÃ³n con este nombre.'
+    END
+END
+GO
+
+CREATE PROC sp_EliminarPromocion(
+    @IdPromocion int,
+    @Resultado bit OUTPUT,
+    @Mensaje varchar(500) OUTPUT
+)
+AS
+BEGIN
+    SET @Resultado = 1
+    SET @Mensaje = ''
+    
+    IF EXISTS (SELECT * FROM PROMOCION WHERE IdPromocion = @IdPromocion)
+    BEGIN
+        DELETE FROM PROMOCION WHERE IdPromocion = @IdPromocion
+        SET @Mensaje = 'PromociÃ³n eliminada correctamente.'
+    END
+    ELSE
+    BEGIN
+        SET @Resultado = 0
+        SET @Mensaje = 'La promociÃ³n no existe.'
+    END
+END
+GO
+
+
 
 /****************** INSERTAMOS REGISTROS A LAS TABLAS ******************/
 /*---------------------------------------------------------------------*/
@@ -1088,13 +1233,13 @@ GO
 
 INSERT INTO USUARIO(Documento, NombreCompleto, ApellidoPaterno, ApellidoMaterno, Correo, Clave, IdRol, Estado)
 VALUES 
-('10101010', 'Pedro', 'Sánchez', 'Castro', 'psanchez@gmail.com', '12312345', 1, 1);  
+('10101010', 'Pedro', 'Sï¿½nchez', 'Castro', 'psanchez@gmail.com', '12312345', 1, 1);  
 
 GO
 
 INSERT INTO USUARIO(Documento, NombreCompleto, ApellidoPaterno, ApellidoMaterno, Correo, Clave, IdRol, Estado)
 VALUES 
-('20202020', 'Diego', 'García', 'Villanueva', 'dgarcia97@gmail.com', '45645678', 2, 1);  
+('20202020', 'Diego', 'Garcï¿½a', 'Villanueva', 'dgarcia97@gmail.com', '45645678', 2, 1);  
 
 GO
 
@@ -1114,7 +1259,7 @@ GO
   GO
 
 insert into NEGOCIO(IdNegocio,Nombre,RUC,Direccion,Logo) values
-  (1,'Mueblería Hogar Ideal','20123456789','Av. Tingo María 245, Breña, Lima',null)
+  (1,'Mueblerï¿½a Hogar Ideal','20123456789','Av. Tingo Marï¿½a 245, Breï¿½a, Lima',null)
 
 
 
@@ -1122,30 +1267,30 @@ insert into NEGOCIO(IdNegocio,Nombre,RUC,Direccion,Logo) values
 INSERT INTO CLIENTE (Documento, NombreCompleto, ApellidoPaterno, ApellidoMaterno, Direccion, Telefono, Estado, FechaRegistro)
 VALUES
 ('12345678', 'Juan Alejandro', 'Perez', 'Cardenas', 'Av. Los Olivos 123 - Lima', '987654321', 1, GETDATE()),
-('23456789', 'María Alejandra', 'García', 'Marquez', 'Jr. Las Flores 456 - Lima', '923456789', 1, GETDATE()),
+('23456789', 'Marï¿½a Alejandra', 'Garcï¿½a', 'Marquez', 'Jr. Las Flores 456 - Lima', '923456789', 1, GETDATE()),
 ('34567890', 'Pedro Augusto', 'Ramirez', 'Hurtado', 'Av. Progreso 789 - Callao', '955555555', 1, GETDATE()),
 ('45678901', 'Ana Sofia', 'Lopez', 'Machado', 'Calle Los Laureles 321 - Surco', '966666666', 1, GETDATE()),
 ('56789012', 'Carlos Jose', 'Martinez', 'Huerta', 'Av. Central 654 - San Miguel', '933333333', 1, GETDATE()),
 ('67890123', 'Laura Alejandra', 'Sanchez', 'Vargas', 'Jr. Primavera 987 - Miraflores', '999999999', 1, GETDATE()),
 ('78901234', 'Diego Alberto', 'Rodriguez', 'Medina', 'Pasaje Las Violetas 111 - Comas', '977777777', 1, GETDATE()),
-('89012345', 'Sofía Milagros', 'Hernandez', 'Silva', 'Av. Libertad 222 - Chorrillos', '944444444', 1, GETDATE()),
-('90123456', 'Luisa Maria', 'Gomez', 'Gonzales', 'Jr. San Martín 333 - San Borja', '922222222', 1, GETDATE()),
+('89012345', 'Sofï¿½a Milagros', 'Hernandez', 'Silva', 'Av. Libertad 222 - Chorrillos', '944444444', 1, GETDATE()),
+('90123456', 'Luisa Maria', 'Gomez', 'Gonzales', 'Jr. San Martï¿½n 333 - San Borja', '922222222', 1, GETDATE()),
 ('01234567', 'Javier Mario', 'Vargas', 'Lloza', 'Av. Las Palmeras 444 - Los Olivos', '911111111', 1, GETDATE());
 
 
--- CREACIÓN CATEGORÍA 1 --
+-- CREACIï¿½N CATEGORï¿½A 1 --
 INSERT INTO CATEGORIA (Descripcion, Estado, FechaRegistro) 
 VALUES ('Sala', 1, GETDATE());
 
--- CREACIÓN CATEGORÍA 2 --
+-- CREACIï¿½N CATEGORï¿½A 2 --
 INSERT INTO CATEGORIA (Descripcion, Estado, FechaRegistro) 
 VALUES ('Comedor', 1, GETDATE());
 
--- CREACIÓN CATEGORÍA 3 --
+-- CREACIï¿½N CATEGORï¿½A 3 --
 INSERT INTO CATEGORIA (Descripcion, Estado, FechaRegistro) 
 VALUES ('Dormitorio', 1, GETDATE());
 
--- CREACIÓN CATEGORÍA 4 --
+-- CREACIï¿½N CATEGORï¿½A 4 --
 INSERT INTO CATEGORIA (Descripcion, Estado, FechaRegistro) 
 VALUES ('Oficina', 1, GETDATE());
 
@@ -1156,7 +1301,7 @@ VALUES ('20123456789', 'Muebles Modernos S.A.C.', 'mueblesmodernos@gmail.com', '
 
 -- PROVEEDOR 2 - Comedor
 INSERT INTO PROVEEDOR (Documento, RazonSocial, Correo, Telefono, IdCategoria, Estado, FechaRegistro)
-VALUES ('20456789012', 'Diseños Elegantes E.I.R.L.', 'disenoselegantes@outlook.com', '976543210', 2, 1, GETDATE());
+VALUES ('20456789012', 'Diseï¿½os Elegantes E.I.R.L.', 'disenoselegantes@outlook.com', '976543210', 2, 1, GETDATE());
 
 -- PROVEEDOR 3 - Dormitorio
 INSERT INTO PROVEEDOR (Documento, RazonSocial, Correo, Telefono, IdCategoria, Estado, FechaRegistro)
@@ -1164,7 +1309,7 @@ VALUES ('20567890123', 'Descanso Ideal S.A.C.', 'descansoideal@gmail.com', '9654
 
 -- PROVEEDOR 4 - Oficina
 INSERT INTO PROVEEDOR (Documento, RazonSocial, Correo, Telefono, IdCategoria, Estado, FechaRegistro)
-VALUES ('20678901234', 'Ofimuebles Perú E.I.R.L.', 'ofimueblesperu@outlook.com', '954321098', 4, 1, GETDATE());
+VALUES ('20678901234', 'Ofimuebles Perï¿½ E.I.R.L.', 'ofimueblesperu@outlook.com', '954321098', 4, 1, GETDATE());
 
 ALTER PROCEDURE sp_RegistrarProducto
     @Codigo        VARCHAR(50),
